@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BaeResponse: Codable {
+struct BaseResponse: Codable {
     let sections : [ModelSection]?
     let pagination : Pagination?
     

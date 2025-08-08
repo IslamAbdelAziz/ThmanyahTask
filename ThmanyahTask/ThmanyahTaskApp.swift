@@ -11,7 +11,8 @@ import SwiftUI
 struct ThmanyahTaskApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
+                .environment(SectionsViewModel(httpClient: HTTPClient()))
         }
     }
 }

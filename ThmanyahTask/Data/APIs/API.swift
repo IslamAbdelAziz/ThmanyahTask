@@ -8,7 +8,7 @@
 import Foundation
 
 enum API {
-    case getHomeScreenSections
+    case getHomeScreenSections(pageNumber: Int = 1)
     
     private
     var baseURL: URL {
@@ -17,8 +17,11 @@ enum API {
     
     var path: URL {
         switch self {
-        case .getHomeScreenSections:
-            return baseURL.appendingPathComponent("home_sections")
+        case .getHomeScreenSections(let pageNumber):
+            let queryItems: [URLQueryItem] = [
+                URLQueryItem(name: "page", value: "\(pageNumber)")
+            ]
+            return baseURL.appendingPathComponent("home_sections").appending(queryItems: queryItems)
         }
     }
     
