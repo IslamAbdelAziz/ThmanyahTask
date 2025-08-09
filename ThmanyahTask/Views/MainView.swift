@@ -22,6 +22,8 @@ struct MainView: View {
                             BigSquareSection(geo: geo, section: section)
                         case .twoLinesGrid:
                             TwoLinesGridSection(geo: geo, section: section)
+                        case .queue:
+                            QueueSection(geo: geo, section: section)
                         default:
                             Text(section.name ?? "")
                         }

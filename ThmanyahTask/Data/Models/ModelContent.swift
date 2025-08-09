@@ -180,6 +180,7 @@ struct ModelContentEpisode : Codable, Identifiable {
     let releaseDate : String?
     let podcastId : String?
     let score : Double?
+    let episodeCount: Int?
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -200,6 +201,8 @@ struct ModelContentEpisode : Codable, Identifiable {
         self.releaseDate = try container.decodeIfPresent(String.self, forKey: .releaseDate)
         self.podcastId = try container.decodeIfPresent(String.self, forKey: .podcastId)
         self.score = try container.decodeIfPresent(Double.self, forKey: .score)
+        self.episodeCount = try container.decodeIfPresent(Int.self, forKey: .episodeCount)
+        
         if let duration = duration {
             let (h, m) = splitDurationIntoHoursAndMinutes(from: duration)
             if h > 0 {
