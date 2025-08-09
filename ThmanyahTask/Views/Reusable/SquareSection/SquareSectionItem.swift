@@ -12,7 +12,7 @@ struct SquareSectionItem: View {
     var contentItem: BaseModelContent?
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
                 // Cover Image
                 AsyncImage(url: URL(string: contentItem?.avatarUrl ?? "")) { image in
                     image
@@ -30,7 +30,7 @@ struct SquareSectionItem: View {
                 .padding(.bottom, -4)
             DurationView(duration: contentItem?.durationText ?? "")
         }
-        .frame(width: geo.size.width * 0.35, height: (geo.size.width * 0.35) + 100)
+        .frame(width: geo.size.width * 0.35, height: (geo.size.width * 0.35) + 100, alignment: .leading)
     }
 }
 

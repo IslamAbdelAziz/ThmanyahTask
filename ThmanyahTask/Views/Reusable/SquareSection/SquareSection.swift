@@ -24,22 +24,22 @@ struct SquareSection: View {
                     if let content = section?.content as? [ModelContentPodcast] {
                         ForEach(content) { item in
                             SquareSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                                .padding(.horizontal, 8)
+                                .padding(.horizontal, 4)
                         }
                     } else if let content = section?.content as? [ModelContentAudioBook] {
                         ForEach(content) { item in
                             SquareSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                                .padding(.horizontal, 8)
+                                .padding(.horizontal, 4)
                         }
                     } else if let content = section?.content as? [ModelContentAudioArticle] {
                         ForEach(content) { item in
                             SquareSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                                .padding(.horizontal, 8)
+                                .padding(.horizontal, 4)
                         }
                     } else if let content = section?.content as? [ModelContentEpisode] {
                         ForEach(content) { item in
                             SquareSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                                .padding(.horizontal, 8)
+                                .padding(.horizontal, 4)
                         }
                     }
                 }
