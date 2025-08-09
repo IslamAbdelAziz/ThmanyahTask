@@ -50,12 +50,20 @@ class SectionsViewModel {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         if let sectionsData = data {
-            let response = try? decoder.decode(BaseResponse.self, from: sectionsData)
-            if let sections = response?.sections {
-                self.sectionsList = sections
+            do {
+                let response = try? decoder.decode(BaseResponse.self, from: sectionsData)
+                if let sections = response?.sections {
+                    self.sectionsList = sections
+                }
+            } catch {
+                print("DECODING ERROR \(error)")
             }
         }
         
     }
     
+    func getSampleSection() -> ModelSection? {
+        failover()
+        return self.sectionsList.first
+    }
 }

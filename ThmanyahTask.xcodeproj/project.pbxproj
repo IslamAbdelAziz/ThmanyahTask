@@ -34,9 +34,52 @@
 		A513220D2E4623E800E6DA3B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A58A49422E4673D400ECEF3D /* Exceptions for "ThmanyahTask" folder in "ThmanyahTaskTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Resources/Fonts/IBMPlexSansArabic-Bold.otf",
+				"Resources/Fonts/IBMPlexSansArabic-ExtraLight.otf",
+				"Resources/Fonts/IBMPlexSansArabic-Light.otf",
+				"Resources/Fonts/IBMPlexSansArabic-Medium.otf",
+				"Resources/Fonts/IBMPlexSansArabic-Regular.otf",
+				"Resources/Fonts/IBMPlexSansArabic-SemiBold.otf",
+				"Resources/Fonts/IBMPlexSansArabic-Text.otf",
+				"Resources/Fonts/IBMPlexSansArabic-Thin.otf",
+			);
+			target = A51321EE2E46238E00E6DA3B /* ThmanyahTaskTests */;
+		};
+		A58A49432E4673D400ECEF3D /* Exceptions for "ThmanyahTask" folder in "ThmanyahTaskUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Resources/Fonts/IBMPlexSansArabic-Bold.otf",
+				"Resources/Fonts/IBMPlexSansArabic-ExtraLight.otf",
+				"Resources/Fonts/IBMPlexSansArabic-Light.otf",
+				"Resources/Fonts/IBMPlexSansArabic-Medium.otf",
+				"Resources/Fonts/IBMPlexSansArabic-Regular.otf",
+				"Resources/Fonts/IBMPlexSansArabic-SemiBold.otf",
+				"Resources/Fonts/IBMPlexSansArabic-Text.otf",
+				"Resources/Fonts/IBMPlexSansArabic-Thin.otf",
+			);
+			target = A51321F82E46238E00E6DA3B /* ThmanyahTaskUITests */;
+		};
+		A58A49452E47051600ECEF3D /* Exceptions for "ThmanyahTask" folder in "ThmanyahTask" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A51321E12E46238C00E6DA3B /* ThmanyahTask */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A51321E42E46238C00E6DA3B /* ThmanyahTask */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A58A49452E47051600ECEF3D /* Exceptions for "ThmanyahTask" folder in "ThmanyahTask" target */,
+				A58A49422E4673D400ECEF3D /* Exceptions for "ThmanyahTask" folder in "ThmanyahTaskTests" target */,
+				A58A49432E4673D400ECEF3D /* Exceptions for "ThmanyahTask" folder in "ThmanyahTaskUITests" target */,
+			);
 			path = ThmanyahTask;
 			sourceTree = "<group>";
 		};
@@ -407,6 +450,8 @@
 				DEVELOPMENT_TEAM = 8QHS9X74T5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ThmanyahTask/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Thmanyah;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -435,6 +480,8 @@
 				DEVELOPMENT_TEAM = 8QHS9X74T5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ThmanyahTask/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Thmanyah;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

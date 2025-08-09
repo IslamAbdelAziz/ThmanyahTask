@@ -11,11 +11,19 @@ struct MainView: View {
     @Environment(SectionsViewModel.self) private var sectionViewModel
     
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(sectionViewModel.sectionsList) { section in
-                    Text(section.name ?? "")
+        GeometryReader { geo in
+            NavigationStack {
+                List {
+                    ForEach(sectionViewModel.sectionsList) { section in
+                        if section.type == .square {
+                            SquareSection(geo: geo, section: section)
+                        } else {
+                            Text(section.name ?? "")
+                        }
+                    }
                 }
+                .listStyle(.plain)
+                .scrollIndicators(.hidden)
             }
         }
         .onAppear {
@@ -33,4 +41,5 @@ struct MainView: View {
 #Preview {
     MainView()
         .environment(SectionsViewModel(httpClient: HTTPClient()))
+        .preferredColorScheme(.dark)
 }
