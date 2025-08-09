@@ -13,6 +13,14 @@ struct BaseModelContent: Codable, Identifiable {
     let avatarUrl : String?
     let duration : Int?
     var durationText : String?
+    var authorName : String?
+    
+    var autherAndTitle: String? {
+        if let authorName = authorName {
+            return "\(authorName) | \(name ?? "")"
+        }
+        return "\(name ?? "")"
+    }
 
     init(from podcast: ModelContentPodcast?) {
         name = podcast?.name
@@ -25,18 +33,22 @@ struct BaseModelContent: Codable, Identifiable {
         avatarUrl = audioBook?.avatarUrl
         duration = audioBook?.duration
         durationText = audioBook?.durationText
+        authorName = audioBook?.authorName
     }
     init(from audioArticle: ModelContentAudioArticle?) {
         name = audioArticle?.name
         avatarUrl = audioArticle?.avatarUrl
         duration = audioArticle?.duration
         durationText = audioArticle?.durationText
+        authorName = audioArticle?.authorName
+
     }
     init(from episode: ModelContentEpisode?) {
         name = episode?.name
         avatarUrl = episode?.avatarUrl
         duration = episode?.duration
         durationText = episode?.durationText
+        authorName = episode?.authorName
     }
     
 }

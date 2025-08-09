@@ -21,7 +21,7 @@ struct DurationView: View {
             }
             .frame(height: 36)
             .padding(.horizontal, 12)
-            .background(.gray.opacity(0.4))
+            .background(.blue.opacity(0.2).mix(with: .gray, by: 0.1))
             .clipShape(.capsule)
 //            .padding(.horizontal, 8)
             .foregroundStyle(.white)

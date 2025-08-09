@@ -13,7 +13,8 @@ enum AppCustomFont {
     case title2
     case body
     case caption
-    
+    case caption2
+
     var size: CGFloat {
         switch self {
         case .largeTitle: return 34
@@ -21,6 +22,7 @@ enum AppCustomFont {
         case .title2:      return 20
         case .body:       return 16
         case .caption:    return 12
+        case .caption2:    return 10
         }
     }
     
@@ -31,6 +33,7 @@ enum AppCustomFont {
         case .title2:      return .title2
         case .body:       return .body
         case .caption:    return .caption
+        case .caption2:    return .caption2
         }
     }
 }
