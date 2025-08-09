@@ -15,9 +15,12 @@ struct MainView: View {
             NavigationStack {
                 List {
                     ForEach(sectionViewModel.sectionsList) { section in
-                        if section.type == .square {
+                        switch(section.type) {
+                        case .square:
                             SquareSection(geo: geo, section: section)
-                        } else {
+                        case .bigSquare, .bigSpaceSquare:
+                            BigSquareSection(geo: geo, section: section)
+                        default:
                             Text(section.name ?? "")
                         }
                     }

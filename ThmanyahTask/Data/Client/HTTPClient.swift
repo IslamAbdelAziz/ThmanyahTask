@@ -31,7 +31,7 @@ struct HTTPClient {
         self.session = URLSession(configuration: configuration)
     }
     
-    func load<T: Codable>(_ resource: GenericResource<T>) async throws -> T? {
+    func load<T: Decodable>(_ resource: GenericResource<T>) async throws -> T? {
         var request = URLRequest(url: resource.url)
         request.httpMethod = resource.method.name
         

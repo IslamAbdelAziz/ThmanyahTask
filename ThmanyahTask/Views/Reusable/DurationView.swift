@@ -31,6 +31,6 @@ struct DurationView: View {
 }
 
 #Preview {
-    DurationView(duration: SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[3].durationText ?? "")
+    DurationView(duration: (SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[0] as? ModelContentPodcast)?.durationText ?? "")
         .preferredColorScheme(.dark)
 }

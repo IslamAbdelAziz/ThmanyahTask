@@ -51,8 +51,8 @@ class SectionsViewModel {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         if let sectionsData = data {
             do {
-                let response = try? decoder.decode(BaseResponse.self, from: sectionsData)
-                if let sections = response?.sections {
+                let response = try decoder.decode(BaseResponse.self, from: sectionsData)
+                if let sections = response.sections {
                     self.sectionsList = sections
                 }
             } catch {

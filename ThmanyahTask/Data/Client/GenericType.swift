@@ -8,7 +8,7 @@
 import Foundation
 
 //MARK: Generic Resource
-struct GenericResource<T: Codable> {
+struct GenericResource<T: Decodable> {
     var url: URL
     var method: HTTPMethod
     var modelType: T.Type

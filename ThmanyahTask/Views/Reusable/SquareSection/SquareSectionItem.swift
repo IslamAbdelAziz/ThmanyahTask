@@ -9,11 +9,10 @@ import SwiftUI
 
 struct SquareSectionItem: View {
     let geo: GeometryProxy
-    var contentItem: ModelContent?
+    var contentItem: BaseModelContent?
 
     var body: some View {
         VStack {
-//            ZStack {
                 // Cover Image
                 AsyncImage(url: URL(string: contentItem?.avatarUrl ?? "")) { image in
                     image
@@ -37,7 +36,7 @@ struct SquareSectionItem: View {
 
 #Preview {
     GeometryReader { geo in
-        SquareSectionItem(geo: geo, contentItem: SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[3])
+        SquareSectionItem(geo: geo, contentItem: BaseModelContent(from: (SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[0] as? ModelContentPodcast)))
             .preferredColorScheme(.dark)
     }
 }
