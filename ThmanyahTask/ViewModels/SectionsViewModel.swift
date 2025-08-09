@@ -30,7 +30,7 @@ class SectionsViewModel {
             sectionsList = response?.sections ?? []
             controlPaginationLogic(totalPages: response?.pagination?.totalPages)
         } catch {
-            failover()
+//            failover()
             throw error
         }
     }

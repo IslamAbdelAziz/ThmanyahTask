@@ -18,7 +18,7 @@ struct QueueSection: View {
                 .padding(.bottom, -4)
             // Content
             if let content = section?.content as? [ModelContentPodcast] {
-                QueueSectionItem(geo: geo, contentItem: BaseModelContent(from: content.first), images: content.map({ $0.avatarUrl ?? "" }))
+                QueueSectionItem(geo: geo, contentItem: BaseModelContent(from: (content.count > 3) ? content[3] : content.last), images: content.map({ $0.avatarUrl ?? "" }))
                     .padding(.horizontal, 4)
             } else if let content = section?.content as? [ModelContentAudioBook] {
                 QueueSectionItem(geo: geo, contentItem: BaseModelContent(from: content.first), images: content.map({ $0.avatarUrl ?? "" }))
@@ -31,7 +31,7 @@ struct QueueSection: View {
                     .padding(.horizontal, 4)
             }
         }
-        .frame(width: geo.size.width * 0.9, height: (geo.size.width * 0.3) + 24)
+        .frame(width: geo.size.width, height: (geo.size.width * 0.3) + 50)
     }
 }
 

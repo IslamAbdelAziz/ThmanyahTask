@@ -8,45 +8,66 @@
 import SwiftUI
 
 struct MainView: View {
-    @Environment(SectionsViewModel.self) private var sectionViewModel
+    @State var sectionViewModel = SectionsViewModel(httpClient: HTTPClient())
     
     var body: some View {
         GeometryReader { geo in
-            NavigationStack {
-                List {
-                    ForEach(sectionViewModel.sectionsList) { section in
-                        switch(section.type) {
-                        case .square:
-                            SquareSection(geo: geo, section: section)
-                        case .bigSquare, .bigSpaceSquare:
-                            BigSquareSection(geo: geo, section: section)
-                        case .twoLinesGrid:
-                            TwoLinesGridSection(geo: geo, section: section)
-                        case .queue:
-                            QueueSection(geo: geo, section: section)
-                        default:
-                            Text(section.name ?? "")
+//            if sectionViewModel.sectionsList.isEmpty {
+//                ContentUnavailableView {
+//                    Image(.emptyFolder)
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 200)
+//                        .foregroundStyle(.gray)
+//                } description: {
+//                    Text("There are no Data yet, Fetch it please")
+//                        .font(.headline)
+//                } actions: {
+//                    Button ("Fetch Data", systemImage: "antenna.radiowaves.left.and.right") {
+//                        Task {
+//                            try await sectionViewModel.loadSections()
+//                        }
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                    .font(.title3)
+//                    
+//                }
+//                
+//            } else {
+                NavigationStack {
+                    List {
+                        ForEach(sectionViewModel.sectionsList) { section in
+                            switch(section.type) {
+                            case .square:
+                                SquareSection(geo: geo, section: section)
+                                    .modifier(ListSectionViewModifier())
+                            case .bigSquare, .bigSpaceSquare:
+                                BigSquareSection(geo: geo, section: section)
+                                    .modifier(ListSectionViewModifier())
+                            case .twoLinesGrid:
+                                TwoLinesGridSection(geo: geo, section: section)
+                                    .modifier(ListSectionViewModifier())
+                            case .queue:
+                                QueueSection(geo: geo, section: section)
+                                    .modifier(ListSectionViewModifier())
+                            default:
+                                Text(section.name ?? "")
+                            }
                         }
                     }
+                    .listStyle(.plain)
+                    .scrollIndicators(.hidden)
                 }
-                .listStyle(.plain)
-                .scrollIndicators(.hidden)
             }
-        }
         .onAppear {
             Task {
-                do {
-                    try await sectionViewModel.loadSections()
-                } catch {
-                    
-                }
+                try await sectionViewModel.loadSections()
             }
         }
+//        }
     }
 }
-
 #Preview {
     MainView()
-        .environment(SectionsViewModel(httpClient: HTTPClient()))
         .preferredColorScheme(.dark)
 }

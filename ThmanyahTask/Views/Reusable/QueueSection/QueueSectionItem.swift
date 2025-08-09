@@ -30,11 +30,12 @@ struct QueueSectionItem: View {
                     }
                 }
                 VStack(alignment: .leading) {
-                    Spacer()
-                    Text(contentItem?.autherAndTitle ?? "")
-                        .lineLimit(2)
+//                    Spacer()
+                    Text(contentItem?.name ?? "")
                         .appFont(.body, weight: .semibold)
                         .padding(.bottom, -4)
+                        .lineLimit(nil)
+                        .layoutPriority(1)
                     HStack {
                         Text(contentItem?.durationText ?? "")
                             .foregroundStyle(.orange.mix(with: .red, by: 0.5))

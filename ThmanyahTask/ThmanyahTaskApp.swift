@@ -12,7 +12,7 @@ struct ThmanyahTaskApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-                .environment(SectionsViewModel(httpClient: HTTPClient()))
+                .preferredColorScheme(.dark)
         }
     }
 }
