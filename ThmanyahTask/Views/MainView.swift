@@ -57,6 +57,13 @@ struct MainView: View {
                     }
                     .listStyle(.plain)
                     .scrollIndicators(.hidden)
+                    .refreshable {
+                        do {
+                            try await sectionViewModel.loadSections()
+                        } catch {
+                            
+                        }
+                    }
                 }
             }
         .onAppear {
