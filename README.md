@@ -1,8 +1,8 @@
 #  Thmanya Task
 
-| Will build this app using SwiftUI, Async/Await And MV Structure (the best MVVM practice in SwiftUI)
+## Will build this app using SwiftUI, Async/Await And MV Structure (MVVM practice in SwiftUI)
 
-##TODO
+## TODO
 - Create Network Layer using Async/await ✅
     - Models ✅
     - Network structure ✅

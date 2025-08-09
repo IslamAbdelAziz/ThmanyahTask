@@ -15,6 +15,7 @@ class SectionsViewModel {
     
     var sectionsList: [ModelSection] = []
     private var homeScreenPageNumber: Int = 1
+    var isLoading = false
     private var hasMoreSections = true
 
     // DI
@@ -22,15 +23,28 @@ class SectionsViewModel {
         self.httpClient = httpClient
     }
     
-    func loadSections() async throws {
+    func loadSections(reload: Bool = false) async throws {
+        if isLoading, !hasMoreSections { return }
+        if reload {
+            sectionsList.removeAll()
+            homeScreenPageNumber = 1
+            hasMoreSections = true
+        }
+        isLoading = true
         let api = API.getHomeScreenSections(pageNumber: homeScreenPageNumber)
         let resource = GenericResource(url: api.path, method: api.method, modelType: BaseResponse.self)
         do {
             let response = try await httpClient.load(resource)
-            sectionsList = response?.sections ?? []
+            var list = sectionsList
+            for item in response?.sections ?? [] {
+                list.append(item)
+            }
+            sectionsList = list
             controlPaginationLogic(totalPages: response?.pagination?.totalPages)
+            isLoading = false
         } catch {
 //            failover()
+            isLoading = false
             throw error
         }
     }
@@ -45,6 +59,7 @@ class SectionsViewModel {
         }
     }
     
+    /// This function will fetch data from local json file in case of Failure
     private func failover() {
         let data = try? Data(contentsOf: Bundle.main.url(forResource: "sections", withExtension: "json")!)
         let decoder = JSONDecoder()

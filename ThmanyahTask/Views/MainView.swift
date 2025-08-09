@@ -12,66 +12,89 @@ struct MainView: View {
     
     var body: some View {
         GeometryReader { geo in
-//            if sectionViewModel.sectionsList.isEmpty {
-//                ContentUnavailableView {
-//                    Image(.emptyFolder)
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(width: 200)
-//                        .foregroundStyle(.gray)
-//                } description: {
-//                    Text("There are no Data yet, Fetch it please")
-//                        .font(.headline)
-//                } actions: {
-//                    Button ("Fetch Data", systemImage: "antenna.radiowaves.left.and.right") {
-//                        Task {
-//                            try await sectionViewModel.loadSections()
-//                        }
-//                    }
-//                    .buttonStyle(.borderedProminent)
-//                    .font(.title3)
-//                    
-//                }
-//                
-//            } else {
-                NavigationStack {
-                    List {
-                        ForEach(sectionViewModel.sectionsList) { section in
-                            switch(section.type) {
-                            case .square:
-                                SquareSection(geo: geo, section: section)
-                                    .modifier(ListSectionViewModifier())
-                            case .bigSquare, .bigSpaceSquare:
-                                BigSquareSection(geo: geo, section: section)
-                                    .modifier(ListSectionViewModifier())
-                            case .twoLinesGrid:
-                                TwoLinesGridSection(geo: geo, section: section)
-                                    .modifier(ListSectionViewModifier())
-                            case .queue:
-                                QueueSection(geo: geo, section: section)
-                                    .modifier(ListSectionViewModifier())
-                            default:
-                                Text(section.name ?? "")
+            NavigationStack {
+                List {
+                    ForEach(sectionViewModel.sectionsList) { section in
+                        switch(section.type) {
+                        case .square:
+                            SquareSection(geo: geo, section: section)
+                                .modifier(ListSectionViewModifier())
+                                .onAppear {
+                                    if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
+                                        Task {
+                                            try await sectionViewModel.loadSections()
+                                        }
+                                    }
+                                }
+                            if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
+                                ProgressView("Loading...")
+                                    .frame(maxWidth: .infinity)
                             }
-                        }
-                    }
-                    .listStyle(.plain)
-                    .scrollIndicators(.hidden)
-                    .refreshable {
-                        do {
-                            try await sectionViewModel.loadSections()
-                        } catch {
-                            
+                        case .bigSquare, .bigSpaceSquare:
+                            BigSquareSection(geo: geo, section: section)
+                                .modifier(ListSectionViewModifier())
+                                .onAppear {
+                                    if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
+                                        Task {
+                                            try await sectionViewModel.loadSections()
+                                        }
+                                    }
+                                }
+                            if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
+                                ProgressView("Loading...")
+                                    .frame(maxWidth: .infinity)
+                            }
+                        case .twoLinesGrid:
+                            TwoLinesGridSection(geo: geo, section: section)
+                                .modifier(ListSectionViewModifier())
+                                .onAppear {
+                                    if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
+                                        Task {
+                                            try await sectionViewModel.loadSections()
+                                        }
+                                    }
+                                }
+                            if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
+                                ProgressView("Loading...")
+                                    .frame(maxWidth: .infinity)
+                            }
+
+                        case .queue:
+                            QueueSection(geo: geo, section: section)
+                                .modifier(ListSectionViewModifier())
+                                .onAppear {
+                                    if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
+                                        Task {
+                                            try await sectionViewModel.loadSections()
+                                        }
+                                    }
+                                }
+                            if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
+                                ProgressView("Loading...")
+                                    .frame(maxWidth: .infinity)
+                            }
+
+                        default:
+                            Text(section.name ?? "")
                         }
                     }
                 }
-            }
-        .onAppear {
-            Task {
-                try await sectionViewModel.loadSections()
+                .listStyle(.plain)
+                .scrollIndicators(.hidden)
+                .refreshable {
+                    do {
+                        try await sectionViewModel.loadSections(reload: true)
+                    } catch {
+                        
+                    }
+                }
             }
         }
-//        }
+        .onAppear {
+            Task {
+                try await sectionViewModel.loadSections(reload: true)
+            }
+        }
     }
 }
 #Preview {
