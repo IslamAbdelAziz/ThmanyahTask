@@ -50,7 +50,9 @@ class SearchViewModel: ObservableObject {
         let resource = GenericResource(url: api.path, method: api.method, modelType: BaseResponse.self)
         do {
             let response = try await httpClient.load(resource)
-            searchResult = response?.sections ?? []
+            var list = response?.sections ?? []
+            list.shuffle()
+            searchResult = list
             isLoading = false
         } catch {
             isLoading = false

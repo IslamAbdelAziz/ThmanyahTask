@@ -18,7 +18,7 @@ struct SearchView: View {
                     if searchViewModel.isLoading {
                         ProgressView()
                             .frame(width: geo.size.width, height: geo.size.height)
-                    }else if searchViewModel.searchResult.isEmpty {
+                    }else if searchViewModel.searchResult.isEmpty, !searchViewModel.isLoading {
                         VStack {
                             Image(systemName: "magnifyingglass")
                                 .resizable()
