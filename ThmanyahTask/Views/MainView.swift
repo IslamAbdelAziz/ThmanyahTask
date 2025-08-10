@@ -14,6 +14,18 @@ struct MainView: View {
         GeometryReader { geo in
             NavigationStack {
                 List {
+                    HStack {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 28)
+                            .foregroundStyle(.green.mix(with: .white, by: 0.5))
+                        Text("Welcome, Islam")
+                            .appFont(.title, weight: .semibold)
+                    }
+                    .padding(.vertical, 8)
+                    .modifier(ListSectionViewModifier())
+                    
                     if sectionViewModel.isLoading {
                         ProgressView()
                             .frame(width: geo.size.width, height: geo.size.height * 0.7)
