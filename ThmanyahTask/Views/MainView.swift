@@ -94,7 +94,7 @@ struct MainView: View {
     
     func fetchSections(reload: Bool = false) {
         Task {
-            try await sectionViewModel.loadSections(reload: true)
+            try await sectionViewModel.loadSections(reload: reload)
         }
     }
 }
