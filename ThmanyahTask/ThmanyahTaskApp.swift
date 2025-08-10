@@ -11,7 +11,7 @@ import SwiftUI
 struct ThmanyahTaskApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            SearchView()
                 .preferredColorScheme(.dark)
         }
     }
