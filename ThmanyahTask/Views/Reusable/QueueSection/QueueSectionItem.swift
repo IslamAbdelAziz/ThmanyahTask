@@ -59,7 +59,7 @@ struct QueueSectionItem: View {
             }
             .padding()
         }
-        .frame(width: geo.size.width * 0.9, height: (geo.size.width * 0.3) + 24)
+        .frame(width: geo.size.width * 0.95, height: (geo.size.width * 0.3) + 24)
         .background(.blue.opacity(0.2).mix(with: .gray, by: 0.1))
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }

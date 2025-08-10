@@ -15,7 +15,7 @@ struct BigSquareSection: View {
         VStack {
             // header
             SectionTitleView(title: section?.name ?? "")
-                .padding(.bottom, -8)
+                .padding(.bottom, -4)
             // Content
             ScrollView(.horizontal) {
                 LazyHGrid(rows: [
