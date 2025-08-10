@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct BaseModelContent: Codable, Identifiable {
-    let id = UUID()
+struct BaseModelContent: Codable, Hashable {
+//    let id: Int?
     let name : String?
     let avatarUrl : String?
     let duration : Int?

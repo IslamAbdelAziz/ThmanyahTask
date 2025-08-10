@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @State var sectionViewModel = SectionsViewModel(httpClient: HTTPClient())
-    
+
     var body: some View {
         GeometryReader { geo in
             NavigationStack {
@@ -25,86 +25,55 @@ struct MainView: View {
                     }
                     .padding(.vertical, 8)
                     .modifier(ListSectionViewModifier())
-                    
-                    if sectionViewModel.isLoading {
-                        ProgressView()
-                            .frame(width: geo.size.width, height: geo.size.height * 0.7)
-                            .modifier(ListSectionViewModifier())
-                    } else {
-                        ForEach(sectionViewModel.sectionsList) { section in
-                            switch(section.type) {
-                            case .square:
-                                SquareSection(geo: geo, section: section)
-                                    .modifier(ListSectionViewModifier())
-                                    .onAppear {
-                                        if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
-                                            Task {
-                                                try await sectionViewModel.loadSections()
-                                            }
-                                        }
+                    ForEach(sectionViewModel.sectionsList) { section in
+                        switch(section.type) {
+                        case .square:
+                            SquareSection(geo: geo, section: section)
+                                .modifier(ListSectionViewModifier())
+                                .onAppear {
+                                    if sectionViewModel.validatePaginationAction(section: section) {
+                                        fetchSections()
                                     }
-                                if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
-                                    ProgressView("Loading...")
-                                        .frame(maxWidth: .infinity)
                                 }
-                            case .bigSquare, .bigSpaceSquare:
-                                BigSquareSection(geo: geo, section: section)
-                                    .modifier(ListSectionViewModifier())
-                                    .onAppear {
-                                        if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
-                                            Task {
-                                                try await sectionViewModel.loadSections()
-                                            }
-                                        }
+                        case .bigSquare, .bigSpaceSquare:
+                            BigSquareSection(geo: geo, section: section)
+                                .modifier(ListSectionViewModifier())
+                                .onAppear {
+                                    if sectionViewModel.validatePaginationAction(section: section) {
+                                        fetchSections()
                                     }
-                                if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
-                                    ProgressView("Loading...")
-                                        .frame(maxWidth: .infinity)
                                 }
-                            case .twoLinesGrid:
-                                TwoLinesGridSection(geo: geo, section: section)
-                                    .modifier(ListSectionViewModifier())
-                                    .onAppear {
-                                        if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
-                                            Task {
-                                                try await sectionViewModel.loadSections()
-                                            }
-                                        }
+                        case .twoLinesGrid:
+                            TwoLinesGridSection(geo: geo, section: section)
+                                .modifier(ListSectionViewModifier())
+                                .onAppear {
+                                    if sectionViewModel.validatePaginationAction(section: section) {
+                                        fetchSections()
                                     }
-                                if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
-                                    ProgressView("Loading...")
-                                        .frame(maxWidth: .infinity)
                                 }
-                                
-                            case .queue:
-                                QueueSection(geo: geo, section: section)
-                                    .modifier(ListSectionViewModifier())
-                                    .onAppear {
-                                        if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
-                                            Task {
-                                                try await sectionViewModel.loadSections()
-                                            }
-                                        }
+                        case .queue:
+                            QueueSection(geo: geo, section: section)
+                                .modifier(ListSectionViewModifier())
+                                .onAppear {
+                                    if sectionViewModel.validatePaginationAction(section: section) {
+                                        fetchSections()
                                     }
-                                if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
-                                    ProgressView("Loading...")
-                                        .frame(maxWidth: .infinity)
                                 }
-                                
-                            default:
-                                Text(section.name ?? "")
-                            }
+                            
+                        default:
+                            Text(section.name ?? "")
                         }
                     }
+                    if sectionViewModel.isLoading {
+                        ProgressView("Loading...")
+                            .frame(maxWidth: .infinity)
+                    }
+                    
                 }
                 .listStyle(.plain)
                 .scrollIndicators(.hidden)
                 .refreshable {
-                    do {
-                        try await sectionViewModel.loadSections(reload: true)
-                    } catch {
-                        
-                    }
+                    fetchSections(reload: true)
                 }
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -119,9 +88,13 @@ struct MainView: View {
             }
         }
         .onAppear {
-            Task {
-                try await sectionViewModel.loadSections(reload: true)
-            }
+            fetchSections()
+        }
+    }
+    
+    func fetchSections(reload: Bool = false) {
+        Task {
+            try await sectionViewModel.loadSections(reload: true)
         }
     }
 }

@@ -35,11 +35,7 @@ class SectionsViewModel {
         let resource = GenericResource(url: api.path, method: api.method, modelType: BaseResponse.self)
         do {
             let response = try await httpClient.load(resource)
-            var list = sectionsList
-            for item in response?.sections ?? [] {
-                list.append(item)
-            }
-            sectionsList = list
+            sectionsList.append(contentsOf: response?.sections ?? [])
             controlPaginationLogic(totalPages: response?.pagination?.totalPages)
             isLoading = false
         } catch {
@@ -57,6 +53,15 @@ class SectionsViewModel {
         } else {
             hasMoreSections = false
         }
+    }
+    func validatePaginationAction(section: ModelSection) -> Bool {
+        if let idx = sectionsList.firstIndex(where: {$0.id == section.id}) {
+            if idx == sectionsList.count - 3 && hasMoreSections {
+                print(idx)
+                return true
+            }
+        }
+        return false
     }
     
     /// This function will fetch data from local json file in case of Failure
