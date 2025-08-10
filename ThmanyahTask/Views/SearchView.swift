@@ -18,6 +18,20 @@ struct SearchView: View {
                     if searchViewModel.isLoading {
                         ProgressView()
                             .frame(width: geo.size.width, height: geo.size.height)
+                    }else if searchViewModel.searchResult.isEmpty {
+                        VStack {
+                            Image(systemName: "magnifyingglass")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                                .foregroundStyle(.secondary)
+                                .padding(.vertical, 40)
+                            Text("Looking for something to listen to?")
+                                .appFont(.title2)
+                                .foregroundStyle(.secondary)
+                        }
+                        .frame(width: geo.size.width, height: geo.size.height * 0.7)
+                        .modifier(ListSectionViewModifier())
                     } else {
                         ForEach(searchViewModel.searchResult) { section in
                             switch(section.type) {
@@ -41,7 +55,7 @@ struct SearchView: View {
                 }
                 .listStyle(.plain)
                 .scrollIndicators(.hidden)
-                .searchable(text: $searchViewModel.searchText)
+                .searchable(text: $searchViewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
                 .autocorrectionDisabled()
                 .onChange(of: searchViewModel.searchText) {
                     searchViewModel.debounceSearch()
@@ -54,4 +68,5 @@ struct SearchView: View {
 
 #Preview {
     SearchView()
+        .preferredColorScheme(.dark)
 }

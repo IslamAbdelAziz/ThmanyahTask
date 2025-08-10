@@ -16,7 +16,8 @@ struct MainView: View {
                 List {
                     if sectionViewModel.isLoading {
                         ProgressView()
-                            .frame(width: geo.size.width, height: geo.size.height)
+                            .frame(width: geo.size.width, height: geo.size.height * 0.7)
+                            .modifier(ListSectionViewModifier())
                     } else {
                         ForEach(sectionViewModel.sectionsList) { section in
                             switch(section.type) {
