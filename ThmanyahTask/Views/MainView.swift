@@ -14,68 +14,73 @@ struct MainView: View {
         GeometryReader { geo in
             NavigationStack {
                 List {
-                    ForEach(sectionViewModel.sectionsList) { section in
-                        switch(section.type) {
-                        case .square:
-                            SquareSection(geo: geo, section: section)
-                                .modifier(ListSectionViewModifier())
-                                .onAppear {
-                                    if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
-                                        Task {
-                                            try await sectionViewModel.loadSections()
+                    if sectionViewModel.isLoading {
+                        ProgressView()
+                            .frame(width: geo.size.width, height: geo.size.height)
+                    } else {
+                        ForEach(sectionViewModel.sectionsList) { section in
+                            switch(section.type) {
+                            case .square:
+                                SquareSection(geo: geo, section: section)
+                                    .modifier(ListSectionViewModifier())
+                                    .onAppear {
+                                        if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
+                                            Task {
+                                                try await sectionViewModel.loadSections()
+                                            }
                                         }
                                     }
+                                if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
+                                    ProgressView("Loading...")
+                                        .frame(maxWidth: .infinity)
                                 }
-                            if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
-                                ProgressView("Loading...")
-                                    .frame(maxWidth: .infinity)
-                            }
-                        case .bigSquare, .bigSpaceSquare:
-                            BigSquareSection(geo: geo, section: section)
-                                .modifier(ListSectionViewModifier())
-                                .onAppear {
-                                    if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
-                                        Task {
-                                            try await sectionViewModel.loadSections()
+                            case .bigSquare, .bigSpaceSquare:
+                                BigSquareSection(geo: geo, section: section)
+                                    .modifier(ListSectionViewModifier())
+                                    .onAppear {
+                                        if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
+                                            Task {
+                                                try await sectionViewModel.loadSections()
+                                            }
                                         }
                                     }
+                                if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
+                                    ProgressView("Loading...")
+                                        .frame(maxWidth: .infinity)
                                 }
-                            if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
-                                ProgressView("Loading...")
-                                    .frame(maxWidth: .infinity)
-                            }
-                        case .twoLinesGrid:
-                            TwoLinesGridSection(geo: geo, section: section)
-                                .modifier(ListSectionViewModifier())
-                                .onAppear {
-                                    if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
-                                        Task {
-                                            try await sectionViewModel.loadSections()
+                            case .twoLinesGrid:
+                                TwoLinesGridSection(geo: geo, section: section)
+                                    .modifier(ListSectionViewModifier())
+                                    .onAppear {
+                                        if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
+                                            Task {
+                                                try await sectionViewModel.loadSections()
+                                            }
                                         }
                                     }
+                                if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
+                                    ProgressView("Loading...")
+                                        .frame(maxWidth: .infinity)
                                 }
-                            if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
-                                ProgressView("Loading...")
-                                    .frame(maxWidth: .infinity)
-                            }
-
-                        case .queue:
-                            QueueSection(geo: geo, section: section)
-                                .modifier(ListSectionViewModifier())
-                                .onAppear {
-                                    if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
-                                        Task {
-                                            try await sectionViewModel.loadSections()
+                                
+                            case .queue:
+                                QueueSection(geo: geo, section: section)
+                                    .modifier(ListSectionViewModifier())
+                                    .onAppear {
+                                        if sectionViewModel.sectionsList.isThresholdItem(offset: 5, item: section) { // Load 5 items early
+                                            Task {
+                                                try await sectionViewModel.loadSections()
+                                            }
                                         }
                                     }
+                                if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
+                                    ProgressView("Loading...")
+                                        .frame(maxWidth: .infinity)
                                 }
-                            if sectionViewModel.isLoading && sectionViewModel.sectionsList.isLastItem(section) {
-                                ProgressView("Loading...")
-                                    .frame(maxWidth: .infinity)
+                                
+                            default:
+                                Text(section.name ?? "")
                             }
-
-                        default:
-                            Text(section.name ?? "")
                         }
                     }
                 }
@@ -86,6 +91,16 @@ struct MainView: View {
                         try await sectionViewModel.loadSections(reload: true)
                     } catch {
                         
+                    }
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        NavigationLink {
+                            SearchView()
+                        } label: {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
             }
