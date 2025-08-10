@@ -10,11 +10,14 @@ import Foundation
 //MARK: Client
 enum HTTPMethod {
     case get
+    case delete
 
     var name: String {
         switch self {
         case .get:
             return "GET"
+        case .delete:
+            return "DELETE"
         }
     }
 }

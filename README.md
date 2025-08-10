@@ -7,11 +7,11 @@
     - Models ✅
     - Network structure ✅
     - Error types ✅
-    - Write Unit tests for it
+    - Write Unit tests for it ✅
 - Create View Model
     - create View Model ✅
     - API calls ✅
-    - Write tests for it
+    - Write tests for it ✅
 - UI Design
     - UI Components ✅
         - Square Type ✅
@@ -22,6 +22,6 @@
         List Confirming to all UI Component types ✅
         - Pull to Refresh ✅
         - 
-    - Create Search Screen
+    - Create Search Screen ✅
     
         

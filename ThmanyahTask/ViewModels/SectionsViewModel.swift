@@ -45,7 +45,7 @@ class SectionsViewModel {
         }
     }
     
-    private
+    
     func controlPaginationLogic(totalPages: Int?) {
         if let totalPages = totalPages, homeScreenPageNumber < totalPages {
             homeScreenPageNumber += 1
@@ -85,5 +85,13 @@ class SectionsViewModel {
     func getSampleSection() -> ModelSection? {
         failover()
         return self.sectionsList.first
+    }
+    
+    func getHasMoreSections() -> Bool {
+        return hasMoreSections
+    }
+    
+    func getPageNumber() -> Int {
+        return homeScreenPageNumber
     }
 }
