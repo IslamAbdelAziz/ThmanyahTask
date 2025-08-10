@@ -1,6 +1,6 @@
 #  Thmanya Task
 
-## Will build this app using SwiftUI, Async/Await And MV Structure (MVVM practice in SwiftUI)
+## Will build this app using SwiftUI, Async/Await And MVVM Structure
 
 ## Unit Test Coverage
 <img width="1131" height="138" alt="Screenshot 2025-08-10 at 8 52 18 PM" src="https://github.com/user-attachments/assets/0dd8ccf0-7289-41d7-a9f0-7c2ccb2f002e" />
