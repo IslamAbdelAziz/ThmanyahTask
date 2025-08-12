@@ -11,7 +11,7 @@
 - Making App in Arabic
     - Since the Whole Content is comming from API, I tried to inspect the API, Adding language parameter to headers and as a quey parameter, But with No luck.. So It is in English :(
 - Search!
-    - The shared API is useless, Just reutrn mock data, and this data is not valid to build the UI, plus it doesn't do any search. So I ignored the API and made the search Screen using the main page API (Since there is no search result from API :D) But you will like it!
+    - The shared API wasn't helpful, Just reutrn mock data, and this data is not valid to build the UI, plus it doesn't do any search. So I ignored the API and made the search Screen using the main page API (Since there is no search result from API :D) But you will like it!
 
  ## Suggestions
  - Sharing better resources will make implementation faster! (Ex: Figma design, APIs with data close to mentioned design "Arabic Response")
