@@ -9,7 +9,7 @@ import SwiftUI
 
 struct QueueSectionItem: View {
     let geo: GeometryProxy
-    var contentItem: BaseModelContent?
+    var contentItem: MixedContentValue?
     var images: [String]
 
     var body: some View {
@@ -67,7 +67,7 @@ struct QueueSectionItem: View {
 
 #Preview {
     GeometryReader { geo in
-        QueueSectionItem(geo: geo, contentItem: BaseModelContent(from: (SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[1] as? ModelContentPodcast)), images: [
+        QueueSectionItem(geo: geo, contentItem: SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[1], images: [
             "https://content.production.cdn.art19.com/images/b1/00/ad/c3/b100adc3-b65d-4ac9-9ab8-90b15cbc0013/39b12791ec1dad478f4fa2d08d00f2adbbdd8826319ff4efc35165647fe3760d2aeed81ca792953b99fdac6ee7dc24f39457c178e0595df0a83c3dda427b3d16.jpeg",
             "https://content.production.cdn.art19.com/images/b1/00/ad/c3/b100adc3-b65d-4ac9-9ab8-90b15cbc0013/39b12791ec1dad478f4fa2d08d00f2adbbdd8826319ff4efc35165647fe3760d2aeed81ca792953b99fdac6ee7dc24f39457c178e0595df0a83c3dda427b3d16.jpeg",
             "https://content.production.cdn.art19.com/images/b1/00/ad/c3/b100adc3-b65d-4ac9-9ab8-90b15cbc0013/39b12791ec1dad478f4fa2d08d00f2adbbdd8826319ff4efc35165647fe3760d2aeed81ca792953b99fdac6ee7dc24f39457c178e0595df0a83c3dda427b3d16.jpeg",

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TwoLinesGridSectionItem: View {
     let geo: GeometryProxy
-    var contentItem: BaseModelContent?
+    var contentItem: MixedContentValue?
     
     var body: some View {
         HStack {
@@ -50,7 +50,7 @@ struct TwoLinesGridSectionItem: View {
 
 #Preview {
     GeometryReader { geo in
-        TwoLinesGridSectionItem(geo: geo, contentItem: BaseModelContent(from: (SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[1] as? ModelContentPodcast)))
+        TwoLinesGridSectionItem(geo: geo, contentItem: SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[1])
             .padding()
             .preferredColorScheme(.dark)
     }

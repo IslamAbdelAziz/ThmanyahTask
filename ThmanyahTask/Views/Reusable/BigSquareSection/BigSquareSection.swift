@@ -21,26 +21,9 @@ struct BigSquareSection: View {
                 LazyHGrid(rows: [
                     GridItem(.fixed(geo.size.width * 0.5))
                 ]) {
-                    if let content = section?.content as? [ModelContentPodcast] {
-                        ForEach(content) { item in
-                            BigSquareSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                                .padding(.horizontal, 4)
-                        }
-                    } else if let content = section?.content as? [ModelContentAudioBook] {
-                        ForEach(content) { item in
-                            BigSquareSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                                .padding(.horizontal, 4)
-                        }
-                    } else if let content = section?.content as? [ModelContentAudioArticle] {
-                        ForEach(content) { item in
-                            BigSquareSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                                .padding(.horizontal, 4)
-                        }
-                    } else if let content = section?.content as? [ModelContentEpisode] {
-                        ForEach(content) { item in
-                            BigSquareSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                                .padding(.horizontal, 4)
-                        }
+                    ForEach(section?.content ?? []) { item in
+                        BigSquareSectionItem(geo: geo, contentItem: item)
+                            .padding(.horizontal, 4)
                     }
                 }
             }

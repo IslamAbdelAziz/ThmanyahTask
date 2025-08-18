@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SquareSectionItem: View {
     let geo: GeometryProxy
-    var contentItem: BaseModelContent?
+    var contentItem: MixedContentValue?
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -36,7 +36,7 @@ struct SquareSectionItem: View {
 
 #Preview {
     GeometryReader { geo in
-        SquareSectionItem(geo: geo, contentItem: BaseModelContent(from: (SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[0] as? ModelContentPodcast)))
+        SquareSectionItem(geo: geo, contentItem: SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[0])
             .preferredColorScheme(.dark)
     }
 }

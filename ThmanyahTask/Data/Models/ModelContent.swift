@@ -7,53 +7,7 @@
 
 import Foundation
 
-struct BaseModelContent: Codable, Hashable {
-//    let id: Int?
-    let name : String?
-    let avatarUrl : String?
-    let duration : Int?
-    var durationText : String?
-    var authorName : String?
-    
-    var autherAndTitle: String? {
-        if let authorName = authorName {
-            return "\(authorName) | \(name ?? "")"
-        }
-        return "\(name ?? "")"
-    }
-
-    init(from podcast: ModelContentPodcast?) {
-        name = podcast?.name
-        avatarUrl = podcast?.avatarUrl
-        duration = podcast?.duration
-        durationText = podcast?.durationText
-    }
-    init(from audioBook: ModelContentAudioBook?) {
-        name = audioBook?.name
-        avatarUrl = audioBook?.avatarUrl
-        duration = audioBook?.duration
-        durationText = audioBook?.durationText
-        authorName = audioBook?.authorName
-    }
-    init(from audioArticle: ModelContentAudioArticle?) {
-        name = audioArticle?.name
-        avatarUrl = audioArticle?.avatarUrl
-        duration = audioArticle?.duration
-        durationText = audioArticle?.durationText
-        authorName = audioArticle?.authorName
-
-    }
-    init(from episode: ModelContentEpisode?) {
-        name = episode?.name
-        avatarUrl = episode?.avatarUrl
-        duration = episode?.duration
-        durationText = episode?.durationText
-        authorName = episode?.authorName
-    }
-    
-}
-
-struct ModelContentPodcast: Codable, Identifiable {
+struct ModelContentPodcast: Codable, Identifiable, Hashable {
     
     let podcastId : String?
     let id = UUID()
@@ -91,7 +45,7 @@ struct ModelContentPodcast: Codable, Identifiable {
     }
 }
 
-struct ModelContentAudioBook : Codable, Identifiable {
+struct ModelContentAudioBook : Codable, Identifiable, Hashable {
     let id = UUID()
     let name : String?
     let avatarUrl : String?
@@ -126,7 +80,7 @@ struct ModelContentAudioBook : Codable, Identifiable {
     }
 }
 
-struct ModelContentAudioArticle : Codable, Identifiable {
+struct ModelContentAudioArticle : Codable, Identifiable, Hashable {
     let id = UUID()
     let name : String?
     let avatarUrl : String?
@@ -159,7 +113,7 @@ struct ModelContentAudioArticle : Codable, Identifiable {
     }
 }
 
-struct ModelContentEpisode : Codable, Identifiable {
+struct ModelContentEpisode : Codable, Identifiable, Hashable {
     let id = UUID()
     let name : String?
     let avatarUrl : String?

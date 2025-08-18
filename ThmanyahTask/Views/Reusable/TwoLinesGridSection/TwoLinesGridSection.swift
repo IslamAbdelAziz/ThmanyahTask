@@ -21,22 +21,9 @@ struct TwoLinesGridSection: View {
                     GridItem(.flexible(), spacing: 16),
                     GridItem(.flexible(), spacing: 16)
                 ], spacing: 16) {
-                    if let content = section?.content as? [ModelContentPodcast] {
-                        ForEach(content) { item in
-                            TwoLinesGridSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                        }
-                    } else if let content = section?.content as? [ModelContentAudioBook] {
-                        ForEach(content) { item in
-                            TwoLinesGridSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                        }
-                    } else if let content = section?.content as? [ModelContentAudioArticle] {
-                        ForEach(content) { item in
-                            TwoLinesGridSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                        }
-                    } else if let content = section?.content as? [ModelContentEpisode] {
-                        ForEach(content) { item in
-                            TwoLinesGridSectionItem(geo: geo, contentItem: BaseModelContent(from: item))
-                        }
+                    ForEach(section?.content ?? []) { item in
+                        TwoLinesGridSectionItem(geo: geo, contentItem: item)
+                            .padding(.horizontal, 4)
                     }
                 }
             }

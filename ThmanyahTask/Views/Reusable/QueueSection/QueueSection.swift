@@ -15,20 +15,10 @@ struct QueueSection: View {
         VStack {
             // header
             SectionTitleView(title: section?.name ?? "")
-            // Content
-            if let content = section?.content as? [ModelContentPodcast] {
-                QueueSectionItem(geo: geo, contentItem: BaseModelContent(from: (content.count > 3) ? content[3] : content.last), images: content.map({ $0.avatarUrl ?? "" }))
-//                    .padding(.horizontal, 4)
-            } else if let content = section?.content as? [ModelContentAudioBook] {
-                QueueSectionItem(geo: geo, contentItem: BaseModelContent(from: content.last), images: content.map({ $0.avatarUrl ?? "" }))
-//                    .padding(.horizontal, 4)
-            } else if let content = section?.content as? [ModelContentAudioArticle] {
-                QueueSectionItem(geo: geo, contentItem: BaseModelContent(from: content.last), images: content.map({ $0.avatarUrl ?? "" }))
-//                    .padding(.horizontal, 4)
-            } else if let content = section?.content as? [ModelContentEpisode] {
-                QueueSectionItem(geo: geo, contentItem: BaseModelContent(from: content.last), images: content.map({ $0.avatarUrl ?? "" }))
-//                    .padding(.horizontal, 4)
+            if let content = section?.content, !content.isEmpty {
+                QueueSectionItem(geo: geo, contentItem: (content.count > 3) ? content[3] : content.last, images: content.map{$0.avatarUrl})
             }
+
         }
         .frame(width: geo.size.width, height: (geo.size.width * 0.3) + 60)
         .padding(.bottom, 8)

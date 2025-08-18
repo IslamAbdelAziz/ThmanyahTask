@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BigSquareSectionItem: View {
     let geo: GeometryProxy
-    var contentItem: BaseModelContent?
+    var contentItem: MixedContentValue?
     
     var body: some View {
         ZStack {
@@ -55,7 +55,7 @@ struct BigSquareSectionItem: View {
 
 #Preview {
     GeometryReader { geo in
-        BigSquareSectionItem(geo: geo, contentItem: BaseModelContent(from: (SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[0] as? ModelContentPodcast)))
+        BigSquareSectionItem(geo: geo, contentItem: SectionsViewModel(httpClient: HTTPClient()).getSampleSection()?.content?[0])
             .preferredColorScheme(.dark)
             .padding(.top, 40)
     }
